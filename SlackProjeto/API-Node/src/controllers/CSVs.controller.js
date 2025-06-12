@@ -53,7 +53,7 @@ async function pegarCSV(nome, caminho) {
     const keyCompleta = `${caminho}/${nome}`;
     
     const parametros = {
-        Bucket: "tradeflux-client",
+        Bucket: "client-tradeflux",
         Key: keyCompleta,
     };
 

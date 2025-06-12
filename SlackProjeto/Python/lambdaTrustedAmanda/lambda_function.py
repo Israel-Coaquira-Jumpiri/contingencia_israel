@@ -11,7 +11,7 @@ def lambda_handler(event, context):
   
         s3 = boto3.client('s3')
 
-        bucket_name = 'tradeflux-trusted'
+        bucket_name = 'trusted-tradeflux'
         prefix = 'DataCenter1Amanda/' 
 
         response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
@@ -372,7 +372,7 @@ def lambda_handler(event, context):
         nome_arquivo = f'dados_eficiencia_{data_hoje}.json'
 
         s3.put_object(
-        Bucket='tradeflux-client',
+        Bucket='client-tradeflux',
         Key=f'dataCenter1Amanda/{nome_arquivo}',
         Body=json_final,
         ContentType='application/json'

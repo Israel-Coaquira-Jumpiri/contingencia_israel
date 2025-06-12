@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Tradeflux - Dashboard Monitoramento</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/dash_analista.css">
+    <link rel="stylesheet" href="../css/menuLateralAlternativo.css" />
+    <link rel="stylesheet" href="../css/modalPerfil.css">
+    <link rel="stylesheet" href="../css/mobileAnalista.css">
+    <link rel="stylesheet" href="../css/mobileModais.css">
+    <script src="../js/criacaoMenuLateral.js"></script>
+    <script src="../js/modais.js"></script>
+    <link rel="stylesheet" href="../css/dash.css">
+    <link rel="stylesheet" href="../css/barra_lateral.css">
+    <script src="../js/barra_lateral.js" defer></script>
+</head>
+<body onload="renderizarModalUsuario();carregarMenuLateral()">
+    <div id="sistema_modais">
+    </div>
+    <div class="navbar" id="div_navbar">
+        <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+        <div class="container_perfil_menu" id="modal_perfil">
+            <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
+            <span class="barraVertical"></span>
+            <div class="button_perfil_nav_bar" onclick="abrirModal('perfil')">
+            <img class="imgPerfil" id="rogerioCientista2" style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/rogerioCientista.png" alt="" height="80"/>
+            <img class="imgPerfil" id="jenniferADM2"      style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/jenniferADM.png" alt="" height="80"/>
+            <img class="imgPerfil" id="juliaAnalista2"    style="display: none; border-radius: 50%;" src="../assets/icons_protopersonas/juliaAnalista.png" alt="" height="80"/>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+    </div>
+    <main class="container-main" id="main_page">
+        <div id="barralateral" class="barra-lateral">
+            <!-- Menu lateral será carregado via JavaScript -->
+        </div>
+        <div class="mainContent">
+            <div class="central">
+                <div class="centralMain">
+                    <div class="mainHeader">
+                        <div class="selectServer">
+                            <span>Servidores:</span>
+                            <input type="checkbox" id="chkServer" oninput="toggleServerList()">
+                            <label for="chkServer" class="boxSelect">
+                                <span id="nomeServer">Selecione um servidor</span>
+                                <svg width="22" height="13" viewBox="0 0 22 13" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.78825 12.5399L0.3417 3.09327C-0.1139 2.63767 -0.1139 1.89903 0.3417 1.44348L1.44349 0.341688C1.89831 -0.113133 2.63545 -0.114009 3.09134 0.339744L10.6132 7.82634L18.135 0.339744C18.5909 -0.114009 19.328 -0.113133 19.7828 0.341688L20.8846 1.44348C21.3402 1.89908 21.3402 2.63772 20.8846 3.09327L11.4381 12.5399C10.9825 12.9954 10.2439 12.9954 9.78825 12.5399Z"
+                                        fill="#F0F0F0" />
+                                </svg>
+                            </label>
+
+                            <div class="containerOptionsServer" id="optionsServer">
+                                <div class="wrapper" id="spawnpointServer">
+                                    <!-- Opções de servidores serão carregadas via JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="donutHolder">
+                        <div class="containerDonut" onclick="expandirDash('RAM')">
+                            <div class="donutTitle">
+                                <i class="fas fa-memory"></i>
+                                Uso % de RAM
+                            </div>
+                            <div class="midDonut">
+                                <div id="ramStatus" class="statusComp"></div>
+                                <div class="donut">
+                                    <div class="centralDonut" id="centralRAM"></div>
+                                    <canvas id="graficoRAM"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="containerDonut" onclick="expandirDash('Disco')">
+                            <div class="donutTitle">
+                                <i class="fas fa-hdd"></i>
+                                Uso % de Disco
+                            </div>
+                            <div class="midDonut">
+                                <div id="discoStatus" class="statusComp"></div>
+                                <div class="donut">
+                                    <div class="centralDonut" id="centralDisco"></div>
+                                    <canvas id="graficoDisco"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="containerDonut" onclick="expandirDash('CPU')">
+                            <div class="donutTitle">
+                                <i class="fas fa-microchip"></i>
+                                Uso % de CPU
+                            </div>
+                            <div class="midDonut">
+                                <div id="cpuStatus" class="statusComp"></div>
+                                <div class="donut">
+                                    <div class="centralDonut" id="centralCPU"></div>
+                                    <canvas id="graficoCPU"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bigDashHolder">
+                        <canvas id="graficoPrincipal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+<script>
+    const horasDetalhadas = [
+        "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+        "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"
+    ];
+
+    function calcularMediaUltimos5Valores(vetor) {
+    const ultimos5Valores = vetor.slice(-5);  // Pega os últimos 5 valores do vetor
+    const soma = ultimos5Valores.reduce((acc, valor) => acc + valor, 0);  // Soma os valores
+    return soma / ultimos5Valores.length;  // Calcula a média
+
+
+}
+    const RAM_S1 =   [10, 12, 30, 75, 55, 65, 70, 75, 80, 85, 90, 92, 93, 95, 96, 92, 98, 99, 89, 70];
+    const CPU_S1 =   [5, 7, 20, 25, 55, 45, 55, 60, 65, 70, 75, 80, 85, 90, 92, 94, 96, 98, 90, 57];
+    const Disco_S1 = [65, 66, 67, 66, 65, 67, 66, 65, 66, 67, 65, 66, 67, 66, 65, 66, 65, 66, 65, 66];
+
+    const RAM_S2 =   [8, 10, 40, 45, 48, 47, 45, 43, 40, 38, 35, 33, 30, 28, 26, 20, 15, 12, 10, 8];
+    const CPU_S2 =   [6, 8, 60, 65, 68, 67, 65, 63, 60, 58, 55, 53, 50, 48, 45, 40, 35, 30, 25, 20];
+    const Disco_S2 = [55, 56, 57, 56, 55, 57, 56, 55, 56, 57, 55, 56, 57, 56, 55, 56, 55, 56, 55, 56];
+
+    const RAM_S3 =   [5, 6, 30, 32, 35, 34, 32, 30, 28, 27, 25, 23, 20, 18, 17, 14, 12, 10, 8, 6];
+    const CPU_S3 =   [7, 9, 80, 85, 88, 87, 85, 83, 80, 78, 75, 73, 70, 68, 65, 60, 55, 50, 45, 40];
+    const Disco_S3 = [45, 46, 47, 46, 45, 47, 46, 45, 46, 47, 45, 46, 47, 46, 45, 46, 45, 46, 45, 46];
+
+
+
+
+    const mediaRAM_S1 = calcularMediaUltimos5Valores(RAM_S1);
+    const mediaCPU_S1 = calcularMediaUltimos5Valores(CPU_S1);
+    const mediaDisco_S1 = calcularMediaUltimos5Valores(Disco_S1);
+
+    const mediaRAM_S2 = calcularMediaUltimos5Valores(RAM_S2);
+    const mediaCPU_S2 = calcularMediaUltimos5Valores(CPU_S2);
+    const mediaDisco_S2 = calcularMediaUltimos5Valores(Disco_S2);
+
+    const mediaRAM_S3 = calcularMediaUltimos5Valores(RAM_S3);
+    const mediaCPU_S3 = calcularMediaUltimos5Valores(CPU_S3);
+    const mediaDisco_S3 = calcularMediaUltimos5Valores(Disco_S3);
+
+
+
+    const historicos = [
+        { RAM: RAM_S1, CPU: CPU_S1, Disco: Disco_S1 },
+        { RAM: RAM_S2, CPU: CPU_S2, Disco: Disco_S2 },
+        { RAM: RAM_S3, CPU: CPU_S3, Disco: Disco_S3 }
+    ];
+
+    const servidores = [
+        {
+            "servidor": "Servidor 1",
+            "RAM": mediaRAM_S1,
+            "Disco": mediaDisco_S1,
+            "CPU": mediaCPU_S1
+        },
+        {
+            "servidor": "Servidor 2",
+            "RAM": mediaRAM_S2,
+            "Disco": mediaDisco_S2,
+            "CPU": mediaCPU_S2
+        },
+        {
+            "servidor": "Servidor 3",
+            "RAM": mediaRAM_S3,
+            "Disco": mediaDisco_S3,
+            "CPU": mediaCPU_S3
+        }
+    ];
+
+    const charts = {
+        RAM: null,
+        Disco: null,
+        CPU: null,
+        Principal: null
+    };
+
+    let servidorAtual = null;
+    let indexAtual = 0;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarListaServidores();
+        selecionarServidor(0);
+    });
+
+    function carregarListaServidores() {
+        const spawnpoint = document.getElementById('spawnpointServer');
+        spawnpoint.innerHTML = servidores.map((servidor, index) =>
+            `<span onclick="toggleServerList(); selecionarServidor(${index});">${servidor.servidor}</span>`
+        ).join('');
+    }
+
+    function toggleServerList() {
+        const lista = document.getElementById('optionsServer');
+        lista.style.display = lista.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function selecionarServidor(index) {
+        servidorAtual = servidores[index];
+        indexAtual = index;
+        document.getElementById('nomeServer').textContent = servidorAtual.servidor;
+
+        atualizarStatus('RAM', servidorAtual.RAM);
+        atualizarStatus('Disco', servidorAtual.Disco);
+        atualizarStatus('CPU', servidorAtual.CPU);
+
+        atualizarGrafico('RAM', servidorAtual.RAM);
+        atualizarGrafico('Disco', servidorAtual.Disco);
+        atualizarGrafico('CPU', servidorAtual.CPU);
+
+        atualizarGraficoPrincipal();
+    }
+
+    function atualizarStatus(componente, valor) {
+        const elementoStatus = document.getElementById(`${componente.toLowerCase()}Status`);
+
+        if (valor > 80) {
+            elementoStatus.innerHTML = `<b style="color: #e74c3c;">Crítico!</b><i class="fas fa-fire" style="color: #e74c3c;"></i>`;
+        } else if (valor > 60) {
+            elementoStatus.innerHTML = `<b style="color: #f39c12;">Alerta!</b><i class="fas fa-exclamation-triangle" style="color: #f39c12;"></i>`;
+        } else {
+            elementoStatus.innerHTML = `<b style="color: #2ecc71;">Estável</b><i class="fas fa-check-circle" style="color: #2ecc71;"></i>`;
+        }
+    }
+
+    function atualizarGrafico(componente, valor) {
+        const canvas = document.getElementById(`grafico${componente}`);
+        const ctx = canvas.getContext('2d');
+
+        let cor;
+        if (valor > 80) {
+            cor = '#e74c3c';
+        } else if (valor > 60) {
+            cor = '#f39c12';
+        } else {
+            cor = '#2ecc71';
+        }
+
+        document.getElementById(`central${componente}`).innerHTML = `<span style='color: ${cor}'>${valor}</span>`;
+
+        if (charts[componente]) {
+            charts[componente].destroy();
+        }
+
+        charts[componente] = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Usado', 'Disponível'],
+                datasets: [{
+                    data: [valor, 100 - valor],
+                    backgroundColor: [cor, '#24283e'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+
+    function atualizarGraficoPrincipal() {
+        const canvas = document.getElementById('graficoPrincipal');
+        const ctx = canvas.getContext('2d');
+
+        if (charts.Principal) {
+            charts.Principal.destroy();
+        }
+
+        const dados = historicos[indexAtual];
+
+        charts.Principal = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: horasDetalhadas,
+                datasets: [
+                    {
+                        label: 'CPU',
+                        data: dados.CPU,
+                        borderColor: '#e74c3c',
+                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'RAM',
+                        data: dados.RAM,
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'Disco',
+                        data: dados.Disco,
+                        borderColor: '#2ecc71',
+                        backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            color: '#f0f0f0'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#f0f0f0'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#f0f0f0',
+                            boxWidth: 12
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: `Histórico de Utilização - ${servidorAtual.servidor}`,
+                        color: '#f0f0f0',
+                        font: {
+                            size: 16
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function expandirDash(componente) {
+        if (charts.Principal) {
+            charts.Principal.destroy();
+        }
+
+        const canvas = document.getElementById('graficoPrincipal');
+        const ctx = canvas.getContext('2d');
+
+        const dadosDetalhados = historicos[indexAtual][componente];
+
+        let corComponente;
+        switch (componente) {
+            case 'CPU': corComponente = '#e74c3c'; break;
+            case 'RAM': corComponente = '#3498db'; break;
+            case 'Disco': corComponente = '#2ecc71'; break;
+        }
+
+        charts.Principal = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: horasDetalhadas,
+                datasets: [
+                    {
+                        label: `${componente}`,
+                        data: dadosDetalhados,
+                        borderColor: corComponente,
+                        backgroundColor: `${corComponente}33`,
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            color: '#f0f0f0',
+                            callback: function (value) {
+                                return value + '%';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#f0f0f0'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#f0f0f0',
+                            boxWidth: 12
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: `Utilização Detalhada de ${componente} - ${servidorAtual.servidor}`,
+                        color: '#f0f0f0',
+                        font: {
+                            size: 16
+                        }
+                    }
+                }
+            }
+        });
+    }
+</script>

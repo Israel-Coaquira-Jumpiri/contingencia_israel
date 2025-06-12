@@ -1,0 +1,14 @@
+node_modules/
+Site/node_modules
+package-lock.json
+Site/.env.dev
+Site/.env
+SlackProjeto/API-Node/.env
+SlackProjeto/API-Node/node_modules/
+SlackProjeto/Python/captura/__pycache__/comunicacao.cpython-313.pyc
+SlackProjeto/Python/captura/__pycache__/crawler.cpython-313.pyc
+APIpython\database.py
+.vscode
+InstalarInfra/Terraform (Automação AWS)/.Terraform/
+InstalarInfra/Terraform (Automação AWS)/.terraform.lock.hcl
+InstalarInfra/Terraform (Automação AWS)/terraform.tfstate.backup

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="../css/barra_lateral.css" />
+    <link rel="stylesheet" href="../css/dashComparativa.css" />
+    <link rel="shortcut icon" href="../assets/TRADEFLUX__2_cortado.png" type="image/x-icon" />
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="../js/barra_lateral.js" defer></script>
+    <script src="../js/dashComparativa.js" defer></script>
+
+    <title>Dashboard comparativa</title>
+  </head>
+  <body onload="inicializarDashboard();">
+    <main>
+      <div class="navbar">
+        <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+        <div class="container_perfil_menu" id="modal_perfil">
+          <i class="fa-solid fa-bell" onclick="abrirModal('notificacoes')"></i>
+          <span class="barraVertical"></span>
+          <div class="button_perfil_nav_bar" onclick="abrirModal('perfil')">
+            <img
+              class="imgPerfil"
+              id="rogerioCientista2"
+              style="display: none; border-radius: 50%"
+              src="../assets/icons_protopersonas/rogerioCientista.png"
+              alt=""
+              height="80"
+            />
+            <img
+              class="imgPerfil"
+              id="jenniferADM2"
+              style="display: none; border-radius: 50%"
+              src="../assets/icons_protopersonas/jenniferADM.png"
+              alt=""
+              height="80"
+            />
+            <img
+              class="imgPerfil"
+              id="juliaAnalista2"
+              style="display: none; border-radius: 50%"
+              src="../assets/icons_protopersonas/juliaAnalista.png"
+              alt=""
+              height="80"
+            />
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+      <div id="barralateral" class="barra-lateral"></div>
+
+      <div class="grafico_comparacao">
+        <header>
+          <div class="filter-container">
+            <div class="filter-row">
+              <select class="select-field" id="mainSelect">
+                <option value="CPU">- Servidor com maior utilização de CPU -</option>
+                <option value="RAM">
+                  - Servidor com maior utilização de RAM -
+                </option>
+                <option value="Disco">
+                  - Servidor com maior utilização de Disco -
+                </option>
+                <option value="Personalizado">- Servidor específico - </option>
+              </select>
+  
+              <select class="hidden-select" id="hiddenSelect">
+                <option value="#" selected disabled>Selecione um:</option>
+                <option value="0">Servidor 1</option>
+                <option value="1">Servidor 2</option>
+                <option value="2">Servidor 3</option>
+                <option value="3">Servidor 4</option>
+                <option value="4">Servidor 5</option>
+                <option value="5">Servidor 6</option>
+                <option value="6">Servidor 7</option>
+                <!-- <option value="7">Servidor 8</option>
+                <option value="8">Servidor 9</option>
+                <option value="9">Servidor 10</option>
+                <option value="10">Servidor 11</option>
+                <option value="11">Servidor 12</option>
+                <option value="12">Servidor 13</option>
+                <option value="13">Servidor 14</option>
+                <option value="14">Servidor 15</option> -->
+              </select>
+  
+              <div class="botoes-filtro">
+                <button class="botao-filtro" onclick="alterarPeriodo('7dias')" style=" background-color:#7286d5;">
+                  Últimos 7 dias
+                </button>
+                <button class="botao-filtro" onclick="alterarPeriodo('30dias')">
+                  Últimos 30 dias
+                </button>
+                <button class="botao-filtro" onclick="alterarPeriodo('90dias')">
+                  Últimos 3 meses
+                </button>
+              </div>
+  
+            </div>
+          </div>
+        </header>
+  
+        <div id="myBarChart"></div>
+      </div>
+
+      <div class="row-tabela">
+        <div class="container-tabela">
+          <div class="table-container">
+            <h2 class="table-title">Top 5 processos</h2>
+            <table id="processTable">
+              <thead>
+                <tr>
+                  <th id="processHeader" onclick="sortTable('process')">
+                    Processo
+                  </th>
+                  <th id="cpuHeader" onclick="sortTable('cpu')">CPU</th>
+                  <th id="ramHeader" onclick="sortTable('ram')">RAM</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <!-- Conteúdo será gerado pelo JavaScript -->
+              </tbody>
+            </table>
+            <div class="sort-info">
+              Clique nas colunas para ordenar do maior ao menor
+            </div>
+            <div class="button-container">
+              <button class="action-btn secondary" onclick="baixarCSV('processos')">
+                Exportar CSV dos processos
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <p class="funcoes"> Outras funções </p>
+          <button class="open-modal-btn" onclick="openModal()">
+            Comparar com outro servidor
+          </button>
+          <button
+            class="open-modal-btn"
+            id="botaoBaixar"
+            onclick="baixarCSV('servidores')"
+          ></button>
+        </div>
+      </div>
+
+      <div id="modal" class="modal" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title">Gráfico de barra comparativo</h2>
+            <select name="serverSlt" id="sltServidor2">
+              <option value="#" selected disabled>Selecione um:</option>
+              <option value="0">Servidor 1</option>
+              <option value="1">Servidor 2</option>
+              <option value="2">Servidor 3</option>
+              <option value="3">Servidor 4</option>
+              <option value="4">Servidor 5</option>
+              <option value="5">Servidor 6</option>
+              <option value="6">Servidor 7</option>
+              <!-- <option value="7">Servidor 8</option>
+              <option value="8">Servidor 9</option>
+              <option value="9">Servidor 10</option>
+              <option value="10">Servidor 11</option>
+              <option value="11">Servidor 12</option>
+              <option value="12">Servidor 13</option>
+              <option value="13">Servidor 14</option>
+              <option value="14">Servidor 15</option> -->
+            </select>
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="myBarChartComparativa"></div>
+            <!-- <div id="myLineChart"></div> -->
+            <!-- <div id="myLineChart2"></div> -->
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal()">
+              Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

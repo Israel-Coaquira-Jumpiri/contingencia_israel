@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard de Alertas</title>
+    <link rel="stylesheet" href="../css/admDatacenter.css" />
+    <link rel="stylesheet" href="../css/barra_lateral.css" />
+    <link rel="stylesheet" href="../css/modalPerfil.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="../js/barra_lateral.js" defer></script>
+    <script src="../js/admDatacenter.js" defer></script>
+</head>
+<body onload="carregarMenuLateral(); obterValores24h(); renderizarPerfilUsuario()">
+    <div id="sistema_modais">
+  </div>
+  <div class="navbar" id="div_navbar">
+    <i onclick="mudarIcone()" id="menu-bar">&#9776;</i>
+  </div>
+    <div id="barralateral" class="barra-lateral"></div>
+    
+    <div id="painel-controle" class="dashboard">
+        <div id="secao-metricas" class="header-metrics">
+            <div id="cartao-filtro" class="metric-card filter-card">
+                <h3>Selecione intervalo de tempo</h3>
+                <div class="botoes-filtro">
+                    <div class="botoes-filtro">
+                        <button class="botao-filtro" onclick="obterValores24h()">Últimas 24h</button>
+                        <button class="botao-filtro" onclick="obterValores7d()">Últimos 7 dias</button>
+                        <button class="botao-filtro" onclick="obterValores30d()">Últimos 30 dias</button>
+                    </div>
+                </div>
+            </div>
+            <div id="cartao-alertas" class="metric-card alert-card">
+                <h3>Alertas fora do tempo ideal de resolução</h3>
+                <div id="valor-alertas" class="metric-value danger">Carregando...</div>
+            </div>
+            <div id="cartao-tempo" class="metric-card time-card">
+                <h3>Tempo médio de resolução em todos Data Centers</h3>
+                <div id="valor-medio-resolucao" class="metric-value warning">Carregando...</div>
+            </div>
+        </div>
+
+        <div id="secao-tabelas" class="tables-section">
+            <div id="container-top-alertas" class="table-container">
+                <h2>Top 5 Alertas com maior atraso na resolução</h2>
+                <div class="table-wrapper">
+                    <table id="tabela-top-alertas" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data Center</th>
+                                <th>Data-hora gerado</th>
+                                <th>Temp. de Resolução</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela-alertas">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="container-top-datacenters" class="table-container">
+                <h2>Top 3 Data Centers com maior média de tempo de resolução dos alertas</h2>
+                <div class="table-wrapper">
+                    <table id="tabela-top-datacenters" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data Center</th>
+                                <th>Temp. de Resolução</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela-datacenters">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="secao-graficos" class="charts-section">
+            <div id="grafico-container" class="grafico-container">
+                <h2>Top 3 Data Centers com maior número de atrasos</h2>
+                <div id="grafico" class="grafico"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

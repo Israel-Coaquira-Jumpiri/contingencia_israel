@@ -1,0 +1,165 @@
+/* Simple Mobile Responsive Styles */
+@media screen and (max-width: 767px) {
+    /* Main layout */
+
+    .bgForm{
+        width: 100vw;
+        height: 100vh ;
+        margin: 0;
+    }
+    
+    /* Modal adjustment */
+    .formUsuario {
+      width: 85vw;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .areaInputs{
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+        width: auto;
+        height: auto;
+    }
+    .tituloForm{
+        text-align: center;
+        font-size: 4vh;
+    }
+    .input {
+      width: 90%;
+      margin: 0 auto;
+    }
+    .input input{
+        height: 5vh;
+        width: 100%;
+    }
+    .input span{
+        font-size: 2vh;
+    }
+    select {
+      display: block;
+      width: 100%;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+      line-height: 1.3;
+      border: 3px solid #3A3F58;
+      border-radius: 10px;
+      color: white;
+      background-color: #494f78;
+      background-image: none;
+      box-sizing: border-box;
+      appearance: menulist; 
+      -webkit-appearance: menulist;
+      -moz-appearance: menulist;
+    }
+    
+    option {
+      font-size: 16px;
+      padding: 8px;
+    }
+    .erros{
+      display: none;
+    }
+    .buttonCadastrar{
+      height: auto;
+    }
+    .buttonCadastrar button{
+      height: auto;
+      width: auto;
+      padding: 1vh;
+      font-size: 2vh;
+    }
+    .container-main {
+      width: auto;
+      height: auto;
+      margin: 0;
+    }
+    .container_perfil{
+        display: none;
+    }
+    .containerEsteiras{
+        margin-left: 0;
+        width: 100%;
+        height: 70vh;
+    }
+    .container-title p{
+        font-size: 4vh;
+    }
+    .btn-cadastro{
+        font-size: 2.5vh;
+        padding: 1.5vh;
+    }
+    .containerFiltro{
+        padding: 0;
+        margin-top: 3vh;
+    }
+    .mainContent {
+      width: 100vw;
+      margin: 0;
+      padding: 2vh 4vw;
+    }
+    
+    .btn-cadastro {
+      width: 100%;
+    }
+    
+    .tabelaDados {
+      width: 100%;
+    }
+    
+    .tabelaDados thead {
+      display: none;
+    }
+    
+    .tabelaDados tbody tr {
+      display: block;
+      margin-bottom: 1vh;
+      background-color: #272B3F;
+      border-radius: 8px;
+      padding: 3vh 4vw;
+    }
+    
+    .tabelaDados td {
+      display: flex;
+      padding: 1vh 0;
+      text-align: left;
+      font-size: 2vh;
+      align-items: center;
+      border: none;
+      position: relative;
+    }
+    
+    .tabelaDados td:before {
+      content: attr(data-label);
+      font-weight: bold;
+      
+      color: #8f94af;
+      display: inline-block;
+      width: 30%;
+    }
+    
+    .tableIcons {
+      display: inline-block;
+      text-align: center;
+      width: auto;
+      padding: 1vh 4vw;
+    }
+
+    
+  }
+  
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .container-main {
+      width: 100vw;
+    }
+    
+    .barra-lateral {
+      width: 30vw;
+    }
+    
+    .mainContent {
+      width: 70vw;
+      margin-left: 30vw;
+    }
+  }

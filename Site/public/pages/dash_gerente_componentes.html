@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TradeFlux - Componentes</title>
+    <link rel="stylesheet" href="../css/cadastroComponente.css" />
+    <link rel="stylesheet" href="../css/dash_gerente_funcionarios.css" />
+    <link rel="stylesheet" href="../css/modalPerfil.css" />
+    <link rel="stylesheet" href="../css/mobileModais.css" />
+    <link rel="stylesheet" href="../css/mobileGerente.css" />
+    <link rel="stylesheet" href="../css/mobileComponenteServidor.css" />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet"
+    />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    />
+    <link
+    rel="shortcut icon"
+    href="../assets/TRADEFLUX__2_cortado.png"
+    type="image/x-icon"
+    />
+    <script src="../js/mobileGerente.js"></script>
+    <script src="../js/cadastroComponente.js"></script>
+    <script src="../js/criacaoMenuLateral.js"></script>
+    <link rel="stylesheet" href="../css/dash.css">
+    <link rel="stylesheet" href="../css/barra_lateral.css">
+    <script src="../js/barra_lateral.js" defer></script>
+    <script src="../js/modais.js" defer></script>
+    <style>
+      .input-group {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      
+      .input-group .input {
+        flex: 1;
+      }
+      
+      .limiar-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9em;
+        color: #666;
+        margin-bottom: 5px;
+      }
+      
+      .limiar-atencao {
+        color: #f39c12;
+      }
+      
+      .limiar-critico {
+        color: #e74c3c;
+      }
+      
+      .erros {
+        margin-top: 10px;
+        min-height: 20px;
+      }
+    </style>
+  </head>
+
+  <body onload="carregarMenuLateral(); exibirComponentes(); renderizarPerfilUsuario()">
+    <div id="sistema_modais">
+    </div>
+    <div class="navbar" id="div_navbar">
+      <i onclick="mudarIcone()" id="menu-bar">&#9776;</i> 
+  </div>
+    <main class="container-main" id="main_page" onclick="exibirServidorNoSelect()">
+      <!-- Modal de Cadastro -->
+      <div class="bgForm" id="bg_formulario">
+        <div class="formUsuario">
+          <i onclick="fecharModal('cadastro')" class="fechar fa-solid fa-xmark"></i>
+          <div class="tituloForm">Cadastrar Componente</div>
+          <div class="areaInputs">
+
+            <div class="select-container2">
+              <span>Selecione o servidor do Componente:</span>
+              <select id="select_servidor" name="" onchange="exibirCaracteristicas(); exibirComponentesNoSelect()">
+                <option selected disabled value="#">Selecione uma opção</option>
+              </select>
+            </div>
+            <div class="caracteristicas_servidor">
+              <span id="ram_total"></span>
+              <span id="disco_total"></span>
+              <span id="cpu"></span>
+              <span id="so"></span>
+            </div>
+            <div class="select-container2">
+              <span>Selecione um componente para definir o limiar:</span>
+              <select id="select_componente" name="">
+                <option selected disabled value="#">Selecione um componente</option>
+              </select>
+            </div>
+            
+            <!-- Campos de Limiar Atualizado -->
+            <!-- <div class="limiar-labels">
+              <span class="limiar-atencao">Limiar de Atenção</span>
+              <span class="limiar-critico">Limiar Crítico</span>
+            </div> -->
+            <div class="input-group">
+              <div class="input">
+                <span>Limiar de atenção:</span>
+                <input id="ipt_limiar_atencao" type="number" placeholder="Ex: 70" />
+              </div>
+              <div class="input">
+                <span>Limiar crítico:</span>
+                <input id="ipt_limiar_critico" type="number" placeholder="Ex: 85" />
+              </div>
+            </div>
+            <div class="erros" id="erros_cadastro_servidor"></div>
+          <div class="erros" id="erros_cadastro_componente"></div>
+          <div class="erros" id="erros_cadastro_limiar"></div>
+            <div class="buttonCadastrar">
+              <button onclick="cadastrar();">
+                Cadastrar
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <!-- Modal de Edição -->
+      <div class="bgForm" id="bg_formulario_edicao">
+        <div class="formUsuario">
+          <i onclick="fecharModal('edicao')" class="fechar fa-solid fa-xmark"></i>
+          <div class="tituloForm">Editar Componente</div>
+          <span class="componenteEdicao" id="componenteEdicao"></span>
+<!--           
+          <div class="limiar-labels">
+            <span class="limiar-atencao">Limiar de Atenção</span>
+            <span class="limiar-critico">Limiar Crítico</span>
+          </div> -->
+          <div class="input-group">
+            <div class="input">
+              <span>Novo limiar de atenção:</span>
+              <input id="ipt_limiarAtencaoEdicao" type="number"/>
+            </div>
+            <div class="input">
+              <span>Novo limiar crítico:</span>
+              <input id="ipt_limiarCriticoEdicao" type="number"/>
+            </div>
+          </div>
+          
+          <div class="erros" id="erros_edicao_limiar"></div>
+          
+          <div class="botoesModalExcluir">
+            <div class="buttonCadastrar">
+              <button onclick="fecharModal('edicao')">Cancelar</button>
+            </div>
+            <div class="buttonCadastrar">
+              <button onclick="editarComponente()">Editar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bgForm" id="bg_formulario_exclusao" >
+        <div class="formUsuario">
+          <i onclick="fecharModal('exclusao')" class="fechar fa-solid fa-xmark"></i>
+            <div class="tituloForm">Excluir Componente</div>
+              <span style="font-weight: bold; color: #ff6666; font-size: larger; margin-top: 15px; text-align: center;" class="input2">Você tem certeza que deseja excluir este componente?</span>
+              <span style="margin-top: 15px;" id="componenteE"></span>
+              <div class="botoesModalExcluir">
+            <div class="buttonCadastrar">
+              <button onclick="fecharModal('exclusao')">Cancelar</button>
+            </div>
+            <div class="buttonCadastrarRED buttonCadastrar">
+              <button onclick="excluirComponente()">Excluir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div id="barralateral" class="barra-lateral"></div>
+
+      <div class="mainContent">
+        <div class="container-title">
+          <p>Componentes</p>
+        </div>
+        <div class="containerFiltro">
+          <div class="container-btnCadastro">
+            <button id="btnCadastro" class="btn-cadastro" onclick="abrirModal('cadastro')" >
+              <i class="fa-solid fa-circle-plus"></i> 
+              Adicionar Componente
+            </button>
+          </div>
+        </div>
+        <div id="div_containerEsteiras" class="containerEsteiras">
+          <table id="tabelaFuncionarios" class="tabelaDados">
+            <thead>
+              <tr>
+                <th>Componente</th>
+                <th>Unidade de medida</th>
+                <th>Limiar de Atenção</th>
+                <th>Limiar Crítico</th>
+                <th>Servidor</th>
+                <th class="tableIcons">Editar</th>
+                <th class="tableIcons">Excluir</th>
+              </tr>
+            </thead>
+            <tbody id="bodyTabela"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

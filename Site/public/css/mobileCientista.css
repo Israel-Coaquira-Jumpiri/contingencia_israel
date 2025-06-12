@@ -1,0 +1,89 @@
+@media(max-width: 991px) {
+    .container-main {
+      height: auto;
+      width: 100vw;
+    
+    }
+  
+    .mainContent {
+      margin: 0;
+      height: auto;
+      width: 100vw;
+    }
+  }
+  
+  @media(max-width: 768px) {
+    /* .barra-lateral {
+      display: none;
+    } */
+  
+    .container-main {
+      height: auto;
+      width: 100vw;
+      margin: 0;
+      
+  
+    }
+    .container_perfil{
+        display: none;
+    }
+    .mainContent {
+      margin: 0;
+      height: auto;
+      width: 100vw;
+      margin-top: 50px;
+    }
+    .cards{
+        flex-direction: row;
+    }
+    .holderSlt{
+        gap: 1vh;
+    }
+    .card select{
+        height: auto;
+        font-size: 1.2vh;
+    }
+    .titlePico{
+        flex-direction: column;
+        gap: 0;
+    }
+    .titlePico #serverPico, .titlePico #valorPico{
+        font-size: 1.3vh;
+    }
+    .grafico-linha{
+      gap: 2vh;
+    }
+    .grafico-box h3{
+        font-size: 1.8vh;
+    }
+    .grafico-box select{
+        font-size: 1.2vh;
+    }
+    #alertas_criticos, #alertas_atencao{
+        font-size: 3vh;
+    }
+    .ranking-table th, .ranking-table td{
+        font-size: 1.6vh;
+    }
+    .slt_span{
+        font-size: 1.2vh;
+    }
+    body{
+        font-size: 1.5vh;
+    }
+  }
+  
+  @media(max-width: 450px) {
+    html {
+      font-size: 50%;
+    }
+  
+    .servicos_div {
+      margin-top: 0;
+    }
+  
+    .header {
+      padding: 2vh;
+    }
+  }
+  

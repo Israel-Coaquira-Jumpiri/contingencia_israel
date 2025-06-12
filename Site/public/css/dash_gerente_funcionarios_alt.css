@@ -1,0 +1,185 @@
+body {
+  color: #ffffff;
+}
+
+.container-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  
+
+}
+
+.container-title p {
+  font-size: 2.4vw;
+  font-weight: 800;
+  color: #262b3c;
+  margin: 0;
+  /* margin: 0 0 20px 0; */
+}
+
+.container-title {
+  margin-top: 5vh;
+  width: auto;
+  text-align: center;
+}
+
+.container-text {
+  color: #2e2e2eab;
+}
+
+.btn-cadastro {
+  background-color: #414b6e;
+  color: #00c2a8;
+  font-weight: 800;
+  padding: 2vh 2vw;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.4vw;
+ 
+}
+
+.btn-cadastro:hover {
+  cursor: pointer;
+  background-color: #333c5c;
+  color: #89ffef;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(1rem);
+  }
+}
+
+.containerEsteiras {
+  width: 75vw;
+  height: 65vh;
+  margin-left: 1vw;
+  margin-top: 3vh;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  border: 0.25vh solid #cccccc;
+  border-radius: 1vw;
+  overflow-y: auto;
+  background-color: #f2f3f7;
+  scrollbar-color: grey transparent;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+  color: #333c5c;
+}
+
+.containerEsteiras h6 {
+  font-size: 30px;
+}
+
+.containerFiltro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+ul {
+  list-style: none;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid #cccccc;
+  width: 95%;
+}
+
+.hidden {
+  transition: 0.2s;
+}
+
+.container-aviso {
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+  text-align: start;
+}
+
+.area_bg_modal {
+  position: absolute;
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000c0;
+}
+
+#tabelaFuncionarios {
+  width: 100%;
+  border-collapse: collapse;
+}
+#tabelaFuncionarios thead tr th td {
+  color:#000000;
+}
+
+th,
+td {
+  border: solid rgb(201, 201, 201);
+  border-top-width: 0.3vh;
+  border-bottom-width: 0.3vh;
+  border-left-width: 0;
+  border-right-width: 0;
+  padding: 2vh 1vw;
+  text-align: left;
+  color: #000000;
+  font-weight: bold;
+}
+
+.tableIcons {
+  text-align: center;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+th {
+  background-color: #262b3c;
+  color: #ffffff;
+}
+ 
+thead th {
+  position: sticky;
+   top: 0;
+}
+
+#tabelaFuncionarios tbody tr:nth-child(odd) {
+  background-color: #f4f6fa;
+}
+
+#tabelaFuncionarios tbody tr:nth-child(even) {
+  background-color: #e9edf5;
+}
+.tableIcons i {
+  color: #333c5c;
+}
+.tableIcons i:hover {
+  transition: 0.2s;
+  color: #6d7eba;
+}
+
+.status-ok {
+  color: #479f6b;
+}
+
+.status-alerta {
+  color: #eb9100;
+}
+
+.status-critico {
+  color: #e74c3c;
+}
